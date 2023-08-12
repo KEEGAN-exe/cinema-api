@@ -58,6 +58,9 @@ public class Pelicula implements Serializable{
 		this.imagenUrl = imagenUrl;
 	}
 	
+	public void addGenero(Genero genero) {
+		generos.add(genero);
+	}
 
 	public Integer getIdPelicula() {
 		return idPelicula;

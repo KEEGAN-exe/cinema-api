@@ -11,4 +11,5 @@ public interface PeliculaService {
 	public abstract void delete(Integer idPelicula);
 	public abstract Pelicula findById(Integer idPelicula);
 	public abstract Collection<Pelicula> findAll();
+	public abstract Collection<Object[]> findAll_withNames();
 }

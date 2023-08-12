@@ -44,6 +44,11 @@ public class PeliculaServiceImpl implements PeliculaService{
 	public Collection<Pelicula> findAll() {
 		return peliculaRepository.findAll();
 	}
+
+	@Override
+	public Collection<Object[]> findAll_withNames() {
+		return peliculaRepository.findAll_withNames();
+	}
 	
 	
 	
