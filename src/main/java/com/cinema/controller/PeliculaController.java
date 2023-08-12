@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cinema.entity.Pelicula;
+import com.cinema.mapper.PeliculaMapper;
 import com.cinema.service.PeliculaService;
+import com.cinema.util.Mapper;
 
 
 @RestController
@@ -29,7 +31,7 @@ public class PeliculaController {
 	
 	@GetMapping("/listar")
 	private ResponseEntity<?> listar_GET(){
-		Collection<Pelicula> pelicula = peliculaService.findAll();
+		Collection<PeliculaMapper> pelicula = Mapper.toPelicula(peliculaService.findAll());
 		if(pelicula != null) {
 			return new ResponseEntity<>(pelicula, HttpStatus.OK);
 		}
@@ -87,9 +89,9 @@ public class PeliculaController {
 	private ResponseEntity<?> buscar_GET(@PathVariable Integer idPelicula){
 		Pelicula pelicula = peliculaService.findById(idPelicula);
 		if( pelicula != null ) {
-			return new ResponseEntity<>(pelicula, HttpStatus.OK);
+			PeliculaMapper mapper = new PeliculaMapper(pelicula);
+			return new ResponseEntity<>(mapper, HttpStatus.OK);
 		}
 		return new ResponseEntity<>("Pelicula " + idPelicula + " no encontrada", HttpStatus.NOT_FOUND);
-		
 	}
 }
