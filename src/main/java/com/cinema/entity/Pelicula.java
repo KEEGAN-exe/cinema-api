@@ -2,12 +2,16 @@ package com.cinema.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -33,7 +37,9 @@ public class Pelicula implements Serializable{
 	private String pais;
 	@Column(nullable = false)
 	private String imagenUrl;
-	
+	@ManyToMany
+	@JoinTable(name = "peliculas_generos", joinColumns = @JoinColumn(name = "pelicula_id"), inverseJoinColumns = @JoinColumn(name = "genero_id"))
+	private List<Genero> generos;
 	@ManyToOne
 	@JoinColumn(name = "id_director", nullable = false)
 	private Director director;
@@ -115,6 +121,14 @@ public class Pelicula implements Serializable{
 
 	public void setImagenUrl(String imagenUrl) {
 		this.imagenUrl = imagenUrl;
+	}
+
+	public List<Genero> getGeneros() {
+		return generos;
+	}
+
+	public void setGeneros(List<Genero> generos) {
+		this.generos = generos;
 	}
 
 	public Director getDirector() {
