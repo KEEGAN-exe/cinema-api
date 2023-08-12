@@ -61,6 +61,10 @@ public class Pelicula implements Serializable{
 	public void addGenero(Genero genero) {
 		generos.add(genero);
 	}
+	
+	public boolean removeGenero(Genero genero) {
+        return generos.remove(genero);
+    }
 
 	public Integer getIdPelicula() {
 		return idPelicula;
