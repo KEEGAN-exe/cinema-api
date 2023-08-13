@@ -44,6 +44,10 @@ public class Pelicula implements Serializable{
 	@JoinColumn(name = "id_director", nullable = false)
 	private Director director;
 	
+	@ManyToMany
+	@JoinTable(name = "salas_peliculas",joinColumns = @JoinColumn(name = "pelicula_id"), inverseJoinColumns = @JoinColumn(name = "sala_id"))
+	private List<Sala> salas;
+	
 	public Pelicula() {}
 
 	public Pelicula(Integer idPelicula, String nombrePelicula, String sinopsis, Integer clasificacion,
@@ -145,6 +149,13 @@ public class Pelicula implements Serializable{
 	public void setDirector(Director director) {
 		this.director = director;
 	}
-	
+
+	public List<Sala> getSalas() {
+		return salas;
+	}
+
+	public void setSalas(List<Sala> salas) {
+		this.salas = salas;
+	}
 	
 }
