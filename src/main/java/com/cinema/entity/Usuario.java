@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,23 +23,25 @@ public class Usuario implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idUsuario;
-	@Column
+	@Column(nullable = false)
 	private String nombre;
-	@Column
+	@Column(nullable = false,unique = true)
 	private String dni;
-	@Column
+	@Column(nullable = false,unique = true)
 	private Integer telefono;
-	@Column
+	@Column(nullable = false,unique = true)
 	private String usuario;
-	@Column
+	@Column(nullable = false)
 	private String password;
-	@Column
+	@Column(nullable = false)
 	private String email;
-	
 	@ManyToMany
 	@JoinTable(name = "usuarios_roles",joinColumns = @JoinColumn(name = "usuario_id"),
 	inverseJoinColumns = @JoinColumn(name = "rol_id"))
 	private List<Rol> roles;
+	
+	@OneToMany(mappedBy = "usuario")
+	private List<Boleta> boleta;
 
 	public Usuario() {}
 
@@ -123,6 +126,14 @@ public class Usuario implements Serializable{
 
 	public void setRoles(List<Rol> roles) {
 		this.roles = roles;
+	}
+
+	public List<Boleta> getBoleta() {
+		return boleta;
+	}
+
+	public void setBoleta(List<Boleta> boleta) {
+		this.boleta = boleta;
 	}
 	
 }
