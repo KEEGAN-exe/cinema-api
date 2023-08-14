@@ -1,7 +1,7 @@
 package com.cinema.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,7 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "boletas")
@@ -24,7 +30,8 @@ public class Boleta implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idBoleta;
 	@Column(nullable = false)
-	private Date fecha;
+	@DateTimeFormat(pattern="yyyy-MM-dd", iso=ISO.DATE)
+	private LocalDate fecha;
 	@Column(nullable = false)
 	private Double igv;
 	@Column(nullable = false)
@@ -34,6 +41,7 @@ public class Boleta implements Serializable{
 	@Column(nullable = false)
 	private String estado;
 	@OneToMany(mappedBy = "boleta")
+	@JsonIgnore
 	private List<Detalle>  detalles;
 	
 	@ManyToOne
@@ -43,18 +51,27 @@ public class Boleta implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "id_usuario",nullable = false)
 	private Usuario usuario;
-	
-	
+		
 	public Boleta() {}
 
-	public Boleta(Integer idBoleta, Date fecha, Double igv, Double subTotal, Double total) {
+	public Boleta(Integer idBoleta, LocalDate fecha, Double igv, Double subTotal, Double total, String estado,
+			List<Detalle> detalles, Sala sala, Usuario usuario) {
 		this.idBoleta = idBoleta;
 		this.fecha = fecha;
 		this.igv = igv;
 		this.subTotal = subTotal;
 		this.total = total;
+		this.estado = estado;
+		this.detalles = detalles;
+		this.sala = sala;
+		this.usuario = usuario;
 	}
 	
+	@PrePersist
+	public void prePersiste() {
+		fecha = LocalDate.now();
+	}
+
 	public String getEstado() {
 		return estado;
 	}
@@ -86,12 +103,12 @@ public class Boleta implements Serializable{
 	public void setIdBoleta(Integer idBoleta) {
 		this.idBoleta = idBoleta;
 	}
-
-	public Date getFecha() {
+	
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 

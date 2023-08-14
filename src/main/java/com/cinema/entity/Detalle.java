@@ -9,8 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "detalles")
@@ -25,7 +25,7 @@ public class Detalle implements Serializable{
 	@Column(nullable = false)
 	private Integer cantidad;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "id_producto",nullable = false)
 	private Producto producto;
 	
@@ -35,11 +35,13 @@ public class Detalle implements Serializable{
 	
 	public Detalle() {}
 
-	public Detalle(Integer idDetalle, Double precio_unitario, Integer cantidad, Producto producto) {
+	
+	public Detalle(Integer idDetalle, Double precio_unitario, Integer cantidad, Producto producto, Boleta boleta) {
 		this.idDetalle = idDetalle;
 		this.precio_unitario = precio_unitario;
 		this.cantidad = cantidad;
 		this.producto = producto;
+		this.boleta = boleta;
 	}
 
 	public Double getPrecio_unitario() {

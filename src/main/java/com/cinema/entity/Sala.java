@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "salas")
 public class Sala implements Serializable{
@@ -33,6 +35,7 @@ public class Sala implements Serializable{
 	private Integer asientos_ocupados;
 	
 	@OneToMany(mappedBy = "sala")
+	@JsonIgnore
 	private List<Boleta> boletas;
 	
 	@ManyToOne
@@ -40,6 +43,7 @@ public class Sala implements Serializable{
 	private Cine cine;
 	
 	@ManyToMany(mappedBy = "salas")
+	@JsonIgnore
     private List<Pelicula> peliculas;
 	
 	public Sala() {}

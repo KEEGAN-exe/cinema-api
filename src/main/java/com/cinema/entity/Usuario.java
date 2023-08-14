@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario implements Serializable{
@@ -28,7 +30,7 @@ public class Usuario implements Serializable{
 	@Column(nullable = false,unique = true)
 	private String dni;
 	@Column(nullable = false,unique = true)
-	private Integer telefono;
+	private String telefono;
 	@Column(nullable = false,unique = true)
 	private String usuario;
 	@Column(nullable = false)
@@ -38,14 +40,16 @@ public class Usuario implements Serializable{
 	@ManyToMany
 	@JoinTable(name = "usuarios_roles",joinColumns = @JoinColumn(name = "usuario_id"),
 	inverseJoinColumns = @JoinColumn(name = "rol_id"))
+	@JsonIgnore
 	private List<Rol> roles;
 	
 	@OneToMany(mappedBy = "usuario")
+	@JsonIgnore
 	private List<Boleta> boleta;
 
 	public Usuario() {}
 
-	public Usuario(Integer idUsuario, String nombre, String dni, Integer telefono, String usuario, String password,
+	public Usuario(Integer idUsuario, String nombre, String dni, String telefono, String usuario, String password,
 			String email) {
 		this.idUsuario = idUsuario;
 		this.nombre = nombre;
@@ -88,11 +92,11 @@ public class Usuario implements Serializable{
 		this.dni = dni;
 	}
 
-	public Integer getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 

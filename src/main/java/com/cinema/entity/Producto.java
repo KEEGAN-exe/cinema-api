@@ -1,14 +1,17 @@
 package com.cinema.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "productos")
@@ -25,8 +28,9 @@ public class Producto implements Serializable{
 	private String descripcion;
 	@Column
 	private Double precio;
-	@OneToOne(mappedBy = "producto")
-	private Detalle detalle;
+	@OneToMany(mappedBy = "producto")
+	@JsonIgnore
+	private List<Detalle> detalle;
 	
 	public Producto() {}
 
@@ -69,12 +73,12 @@ public class Producto implements Serializable{
 		this.precio = precio;
 	}
 
-	public Detalle getDetalle() {
+	public List<Detalle> getDetalle() {
 		return detalle;
 	}
 
-	public void setDetalle(Detalle detalle) {
+	public void setDetalle(List<Detalle> detalle) {
 		this.detalle = detalle;
 	}
-	
+
 }
