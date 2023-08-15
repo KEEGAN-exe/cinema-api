@@ -1,5 +1,7 @@
 package com.cinema.controller;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cinema.entity.Boleta;
+import com.cinema.mapper.BoletaMapper;
 import com.cinema.service.BoletaService;
+import com.cinema.util.Mapper;
 
 @RestController
 @RequestMapping("/boleta")
@@ -24,9 +28,15 @@ public class BoletaController {
 	
 	public BoletaController() {}
 	
-	@GetMapping("/listar")
+	@GetMapping("/mostrar")
 	public ResponseEntity<?> listar_GET() {
 		return new ResponseEntity<>(boletaService.findAll(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/listar")
+	public ResponseEntity<?> mapper_GET() {
+		Collection<BoletaMapper> mapper = Mapper.toBoleta(boletaService.findAll());
+		return new ResponseEntity<>(mapper,HttpStatus.OK);
 	}
 	
 	@PostMapping("/registrar")

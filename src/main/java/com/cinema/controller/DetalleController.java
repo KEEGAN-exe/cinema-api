@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cinema.entity.Detalle;
+import com.cinema.mapper.DetalleMapper;
 import com.cinema.service.DetalleService;
+import com.cinema.util.Mapper;
 
 @RestController
 @RequestMapping("/detalle")
@@ -27,9 +29,19 @@ public class DetalleController {
 	
 	public DetalleController() {}
 	
-	@GetMapping("/listar")
+	@GetMapping("/mostrar")
 	public ResponseEntity<?> listar_GET(){
 		Collection<Detalle> detalle = detalleService.findAll();
+		if(detalle != null) {
+			return new ResponseEntity<>(detalle,HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping("/listar")
+	public ResponseEntity<?> mapper_GET(){
+		Collection<DetalleMapper> detalle = Mapper.toDetalle(detalleService.findAll());
 		if(detalle != null) {
 			return new ResponseEntity<>(detalle,HttpStatus.OK);
 		}

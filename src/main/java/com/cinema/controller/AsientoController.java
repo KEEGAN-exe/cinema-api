@@ -1,5 +1,7 @@
 package com.cinema.controller;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cinema.entity.Asiento;
+import com.cinema.mapper.AsientoMapper;
 import com.cinema.service.AsientoService;
+import com.cinema.util.Mapper;
 
 @RestController
 @RequestMapping("/asiento")
@@ -24,9 +28,15 @@ public class AsientoController {
 	
 	public AsientoController() {}
 	
-	@GetMapping("/listar")
+	@GetMapping("/mostrar")
 	public ResponseEntity<?> listar_GET(){
 		return new ResponseEntity<>(asientoService.findAll(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/listar")
+	public ResponseEntity<?> mapper_GET(){
+		Collection<AsientoMapper> mapper = Mapper.toAsiento(asientoService.findAll());
+		return new ResponseEntity<>(mapper,HttpStatus.OK);
 	}
 	
 	@PostMapping("/registrar")

@@ -1,5 +1,7 @@
 package com.cinema.controller;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cinema.entity.Usuario;
+import com.cinema.mapper.UsuarioMapper;
 import com.cinema.service.UsuarioService;
+import com.cinema.util.Mapper;
 
 @RestController
 @RequestMapping("/usuario")
@@ -24,10 +28,17 @@ public class UsuarioController {
 	
 	public UsuarioController() {}
 	
-	@GetMapping("/listar")
+	@GetMapping("/mostrar")
 	public ResponseEntity<?> listar_GET(){
 		return new ResponseEntity<>(usuarioService.findAll(),HttpStatus.OK);
 	}
+	
+	@GetMapping("/listar")
+	public ResponseEntity<?> mapper_GET(){
+		Collection<UsuarioMapper> usuario = Mapper.toUsuario(usuarioService.findAll());
+		return new ResponseEntity<>(usuario,HttpStatus.OK);
+	}
+	
 	
 	@PostMapping("/registrar")
 	public ResponseEntity<?> registrar_POST(@RequestBody Usuario usuario){

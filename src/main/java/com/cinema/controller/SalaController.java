@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cinema.entity.Sala;
+import com.cinema.mapper.SalaMapper;
 import com.cinema.service.SalaService;
+import com.cinema.util.Mapper;
 
 @RestController
 @RequestMapping("/sala")
@@ -26,10 +28,16 @@ public class SalaController {
 	
 	public SalaController() {}
 	
-	@GetMapping("/listar")
+	@GetMapping("/mostrar")
 	public ResponseEntity<?> listar_GET(){
 		Collection<Sala> sala = salaService.findAll();
 		return new ResponseEntity<>(sala,HttpStatus.OK);
+	}
+	
+	@GetMapping("/listar")
+	public ResponseEntity<?> mapper_GET(){
+		Collection<SalaMapper> mapper = Mapper.toSala(salaService.findAll());
+		return new ResponseEntity<>(mapper,HttpStatus.OK);
 	}
 	
 	@PostMapping("/registrar")

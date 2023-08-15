@@ -46,6 +46,8 @@ public class CineController {
 				oldCine.setUbicacion(newCine.getUbicacion());
 			}if(newCine.getTelefono() != null) {
 				oldCine.setTelefono(newCine.getTelefono());
+			}if(newCine.getNombreCine() != null) {
+				oldCine.setNombreCine(newCine.getNombreCine());
 			}
 			
 			cineService.update(oldCine);

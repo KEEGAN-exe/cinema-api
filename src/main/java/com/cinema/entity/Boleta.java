@@ -153,6 +153,12 @@ public class Boleta implements Serializable{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
+
+	public List<Asiento> getAsientos() {
+		return asientos;
+	}
+
+	public void setAsientos(List<Asiento> asientos) {
+		this.asientos = asientos;
+	}
 }

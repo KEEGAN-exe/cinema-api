@@ -26,6 +26,8 @@ public class Cine implements Serializable{
 	private String ubicacion;
 	@Column(nullable = false)
 	private String telefono;
+	@Column(nullable = false)
+	private String nombreCine;
 	
 	@OneToMany(mappedBy = "cine")
 	@JsonIgnore
@@ -33,13 +35,15 @@ public class Cine implements Serializable{
 	
 	public Cine() {}
 
-	public Cine(Integer idCine, String ubicacion, String telefono) {
+
+	public Cine(Integer idCine, String ubicacion, String telefono, String nombreCine, List<Sala> salas) {
 		this.idCine = idCine;
 		this.ubicacion = ubicacion;
 		this.telefono = telefono;
+		this.nombreCine = nombreCine;
+		this.salas = salas;
 	}
-	
-	
+
 
 	public List<Sala> getSalas() {
 		return salas;
@@ -71,5 +75,11 @@ public class Cine implements Serializable{
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+	public String getNombreCine() {
+		return nombreCine;
+	}
+	public void setNombreCine(String nombreCine) {
+		this.nombreCine = nombreCine;
 	}
 }
