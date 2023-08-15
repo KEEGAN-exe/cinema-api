@@ -22,11 +22,11 @@ public class Producto implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idProducto; 
-	@Column
+	@Column(nullable = false)
 	private String nombreProducto;
-	@Column
+	@Column(nullable = false)
 	private String descripcion;
-	@Column
+	@Column(nullable = false)
 	private Double precio;
 	@OneToMany(mappedBy = "producto")
 	@JsonIgnore

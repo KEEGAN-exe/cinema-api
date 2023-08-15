@@ -48,6 +48,7 @@ public class Pelicula implements Serializable{
 	@JoinTable(name = "salas_peliculas",joinColumns = @JoinColumn(name = "pelicula_id"), inverseJoinColumns = @JoinColumn(name = "sala_id"))
 	private List<Sala> salas;
 	
+
 	public Pelicula() {}
 
 	public Pelicula(Integer idPelicula, String nombrePelicula, String sinopsis, Integer clasificacion,

@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -51,6 +53,14 @@ public class Boleta implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "id_usuario",nullable = false)
 	private Usuario usuario;
+	
+	@ManyToMany
+    @JoinTable(
+        name = "boleta_asiento",
+        joinColumns = @JoinColumn(name = "id_boleta"),
+        inverseJoinColumns = @JoinColumn(name = "id_asiento")
+    )
+    private List<Asiento> asientos;
 		
 	public Boleta() {}
 

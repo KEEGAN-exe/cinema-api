@@ -46,6 +46,10 @@ public class Sala implements Serializable{
 	@JsonIgnore
     private List<Pelicula> peliculas;
 	
+	@OneToMany(mappedBy = "sala")
+	@JsonIgnore
+	private List<Asiento> asiento;
+	
 	public Sala() {}
 
 	public Sala(Integer idSala, String tipo, String estado, Integer capacidad, Integer asientos_ocupados) {
