@@ -1,6 +1,7 @@
 package com.cinema.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,11 @@ public class AsientoServiceImpl implements AsientoService{
 	@Override
 	public Collection<Asiento> findAll() {
 		return asientoRepository.findAll();
+	}
+
+	@Override
+	public List<Asiento> findBySalaId(Long idAsiento) {
+		return asientoRepository.findBySalaId(idAsiento);
 	}
 	
 	

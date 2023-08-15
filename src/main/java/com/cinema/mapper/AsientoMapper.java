@@ -1,5 +1,6 @@
 package com.cinema.mapper;
 
+
 import com.cinema.entity.Asiento;
 import com.cinema.entity.Sala;
 
@@ -11,8 +12,6 @@ public class AsientoMapper {
 	private String tipo;
 	private Integer codigo_sala;
 	
-	public AsientoMapper() {}
-
 	public AsientoMapper(Integer id_asiento, String estado, Integer columna, Integer fila, String tipo,
 			Integer codigo_sala) {
 		this.id_asiento = id_asiento;

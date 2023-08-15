@@ -1,6 +1,7 @@
 package com.cinema.controller;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -86,5 +87,14 @@ public class AsientoController {
 			return new ResponseEntity<>(asiento, HttpStatus.OK);
 		}
 		return new ResponseEntity<>("Asiento " + idAsiento + " no encontrado", HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping("/buscar_sala/{idSala}")
+	public ResponseEntity<?> buscar_sala_GET(@PathVariable Long idSala){
+		List<Asiento> asiento = asientoService.findBySalaId(idSala);
+		if(asiento != null) {
+			return new ResponseEntity<>(asiento, HttpStatus.OK);
+		}
+		return new ResponseEntity<>("Asiento " + idSala + " no encontrado", HttpStatus.NO_CONTENT);
 	}
 }
