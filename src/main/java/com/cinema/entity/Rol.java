@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "roles")
 public class Rol implements Serializable{
@@ -23,6 +25,7 @@ public class Rol implements Serializable{
 	@Column(nullable = false)
 	private String nombreRol;
 	@ManyToMany(mappedBy = "roles")
+	@JsonIgnore
 	private List<Usuario> itemsUsuarios;
 	
 	public Rol() {}

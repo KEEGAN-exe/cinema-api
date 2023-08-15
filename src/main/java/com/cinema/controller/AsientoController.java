@@ -47,6 +47,8 @@ public class AsientoController {
 				oldAsiento.setTipo(newAsiento.getTipo());
 			}if(newAsiento.getSala() != null) {
 				oldAsiento.setSala(newAsiento.getSala());
+			}if(newAsiento.getEstado() != null) {
+				oldAsiento.setEstado(newAsiento.getEstado());
 			}
 			
 			asientoService.update(oldAsiento);
