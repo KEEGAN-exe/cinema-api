@@ -1,6 +1,10 @@
 package com.cinema.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.cinema.entity.Cine;
+import com.cinema.entity.Pelicula;
 import com.cinema.entity.Sala;
 
 public class SalaMapper {
@@ -10,17 +14,19 @@ public class SalaMapper {
 	private Integer capacidad;
 	private Integer asientos_ocupados;
 	private String nombre_cine;
+	private List<PeliculaInfo> peliculas;
 	
 	public SalaMapper() {}
 
 	public SalaMapper(Integer id_sala, String estado, String tipo, Integer capacidad, Integer asientos_ocupados,
-			String nombre_cine) {
+			String nombre_cine, List<PeliculaInfo> peliculas) {
 		this.id_sala = id_sala;
 		this.estado = estado;
 		this.tipo = tipo;
 		this.capacidad = capacidad;
 		this.asientos_ocupados = asientos_ocupados;
 		this.nombre_cine = nombre_cine;
+		this.peliculas = peliculas;
 	}
 
 	public SalaMapper(Sala sala) {
@@ -30,6 +36,18 @@ public class SalaMapper {
 		this.capacidad = sala.getCapacidad();
 		this.asientos_ocupados = sala.getAsientos_ocupados();
 		this.nombre_cine = nombreCine(sala.getCine());
+		this.peliculas = pelicula(sala.getPeliculas()); 
+	}
+	
+	private List<PeliculaInfo> pelicula(List<Pelicula> peliculas){
+		List<PeliculaInfo> peliculaInList = new ArrayList<>();
+		for(Pelicula pelicula: peliculas) {
+			PeliculaInfo peliculaInfo = new PeliculaInfo();
+			peliculaInfo.setId_pelicula(pelicula.getIdPelicula());
+			peliculaInfo.setNombre_pelicula(pelicula.getNombrePelicula());
+			peliculaInList.add(peliculaInfo);
+		}
+		return peliculaInList;
 	}
 	
 	private String nombreCine(Cine cine) {
@@ -84,6 +102,12 @@ public class SalaMapper {
 	public void setNombre_cine(String nombre_cine) {
 		this.nombre_cine = nombre_cine;
 	}
-	
-	
+
+	public List<PeliculaInfo> getPeliculas() {
+		return peliculas;
+	}
+
+	public void setPeliculas(List<PeliculaInfo> peliculas) {
+		this.peliculas = peliculas;
+	}
 }

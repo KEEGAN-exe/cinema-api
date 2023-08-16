@@ -38,4 +38,9 @@ public class BoletaServiceImpl implements BoletaService{
 	public Collection<Boleta> findAll() {
 		return boletaRepository.findAll();
 	}
+
+	@Override
+	public Collection<Object[]> findAllWithNames() {
+		return boletaRepository.findAllWithNames();
+	}
 }

@@ -11,5 +11,5 @@ public interface BoletaService {
 	public abstract void delete(Integer idBoleta);
 	public abstract Boleta findById(Integer idBoleta);
 	public abstract Collection<Boleta> findAll();
-
+	public abstract Collection<Object[]> findAllWithNames();
 }

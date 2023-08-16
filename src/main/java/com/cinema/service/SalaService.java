@@ -11,5 +11,5 @@ public interface SalaService {
 	public abstract void delete(Integer idSala);
 	public abstract Sala findById(Integer idSala);
 	public abstract Collection<Sala> findAll();
-
+	public abstract Collection<Object[]> findAllWithNames();
 }

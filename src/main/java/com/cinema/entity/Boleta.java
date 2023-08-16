@@ -77,6 +77,14 @@ public class Boleta implements Serializable{
 		this.usuario = usuario;
 	}
 	
+	public void addAsiento(Asiento asiento) {
+		asientos.add(asiento);
+	}
+	
+	public boolean removeAsiento(Asiento asiento) {
+		return asientos.remove(asiento);
+	}
+	
 	@PrePersist
 	public void prePersiste() {
 		fecha = LocalDate.now();

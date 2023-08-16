@@ -38,4 +38,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 	public Collection<Usuario> findAll() {
 		return usuarioRepository.findAll();
 	}
+
+	@Override
+	public Collection<Object[]> findAllWithNames() {
+		return usuarioRepository.findAllWithNames();
+	}
 }

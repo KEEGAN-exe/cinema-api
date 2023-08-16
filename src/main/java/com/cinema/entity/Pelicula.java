@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "peliculas")
 public class Pelicula implements Serializable{
@@ -44,15 +46,16 @@ public class Pelicula implements Serializable{
 	@JoinColumn(name = "id_director", nullable = false)
 	private Director director;
 	
-	@ManyToMany
-	@JoinTable(name = "salas_peliculas",joinColumns = @JoinColumn(name = "pelicula_id"), inverseJoinColumns = @JoinColumn(name = "sala_id"))
-	private List<Sala> salas;
+	@ManyToMany(mappedBy = "peliculas")
+	@JsonIgnore
+	private List<Sala> sala;
 	
 
 	public Pelicula() {}
 
 	public Pelicula(Integer idPelicula, String nombrePelicula, String sinopsis, Integer clasificacion,
-			Date fechaEstreno, Integer duracionMinutos, String pais, String imagenUrl) {
+			Date fechaEstreno, Integer duracionMinutos, String pais, String imagenUrl, List<Genero> generos,
+			Director director, List<Sala> sala) {
 		this.idPelicula = idPelicula;
 		this.nombrePelicula = nombrePelicula;
 		this.sinopsis = sinopsis;
@@ -61,8 +64,11 @@ public class Pelicula implements Serializable{
 		this.duracionMinutos = duracionMinutos;
 		this.pais = pais;
 		this.imagenUrl = imagenUrl;
+		this.generos = generos;
+		this.director = director;
+		this.sala = sala;
 	}
-	
+
 	public void addGenero(Genero genero) {
 		generos.add(genero);
 	}
@@ -151,12 +157,12 @@ public class Pelicula implements Serializable{
 		this.director = director;
 	}
 
-	public List<Sala> getSalas() {
-		return salas;
+	public List<Sala> getSala() {
+		return sala;
 	}
 
-	public void setSalas(List<Sala> salas) {
-		this.salas = salas;
+	public void setSala(List<Sala> sala) {
+		this.sala = sala;
 	}
 	
 }

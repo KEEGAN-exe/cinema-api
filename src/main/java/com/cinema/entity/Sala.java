@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -42,8 +43,8 @@ public class Sala implements Serializable{
 	@JoinColumn(name = "idCine",nullable = false)
 	private Cine cine;
 	
-	@ManyToMany(mappedBy = "salas")
-	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "salas_peliculas",joinColumns = @JoinColumn(name = "pelicula_id"), inverseJoinColumns = @JoinColumn(name = "sala_id"))
     private List<Pelicula> peliculas;
 	
 	@OneToMany(mappedBy = "sala")
@@ -52,12 +53,25 @@ public class Sala implements Serializable{
 	
 	public Sala() {}
 
-	public Sala(Integer idSala, String tipo, String estado, Integer capacidad, Integer asientos_ocupados) {
+	public Sala(Integer idSala, String tipo, String estado, Integer capacidad, Integer asientos_ocupados,
+			List<Boleta> boletas, Cine cine, List<Pelicula> peliculas, List<Asiento> asiento) {
 		this.idSala = idSala;
 		this.tipo = tipo;
 		this.estado = estado;
 		this.capacidad = capacidad;
 		this.asientos_ocupados = asientos_ocupados;
+		this.boletas = boletas;
+		this.cine = cine;
+		this.peliculas = peliculas;
+		this.asiento = asiento;
+	}
+
+	public void addPelicula(Pelicula pelicula) {
+		peliculas.add(pelicula);
+	}
+	
+	public boolean removePelicula(Pelicula pelicula) {
+		return peliculas.remove(pelicula);
 	}
 	
 	public List<Pelicula> getPeliculas() {
@@ -123,4 +137,5 @@ public class Sala implements Serializable{
 	public void setAsientos_ocupados(Integer asientos_ocupados) {
 		this.asientos_ocupados = asientos_ocupados;
 	}
+	
 }

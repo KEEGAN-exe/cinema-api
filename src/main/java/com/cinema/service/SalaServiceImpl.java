@@ -38,6 +38,11 @@ public class SalaServiceImpl implements SalaService{
 	public Collection<Sala> findAll() {
 		return salaRepository.findAll();
 	}
+
+	@Override
+	public Collection<Object[]> findAllWithNames() {
+		return salaRepository.findAllWithNames();
+	}
 	
 	
 }
